@@ -10,21 +10,21 @@ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/loca
 ### Java
 Java v1.7 is required.
 
-##INITIAL SET-UP
+## INITIAL SET-UP
 
-1. Select a location for the framework
+Select a location for the framework
 --------------------------------------
 Create a folder for the Behat framework, anywhere on your machine.
 
 
-2. Clone this repository.
+Clone this repository.
 ---------------------------------------------------
 ```
 git clone git@github.com:brendanmacdonald/behat_website_windows.git
 cd behat_website
 ```
 
-3. Create the Behat folder structure
+Create the Behat folder structure
 ------------------------------------
 Run the bootstrap shell script:
 
@@ -33,10 +33,10 @@ cd bin && ./cwtest-bootstrap.sh
 cd ..
 ```
 
-4. Add behat to your path.
+Add behat to your path.
 E.g. C:\Users\<username>\Desktop\Behat\behat_website\bin
 
-5. Update your local configuration (for the included website)
+Update your local configuration (for the included website)
 -------------------------------------------------------------
 Add the following to your hosts file:
 ```
@@ -51,7 +51,7 @@ Add the following to your Virtual Hosts file being sure to update the path of th
 </VirtualHost>
 ```
 
-6. Verify Setup Successful
+Verify Setup Successful
 --------------------------
 Navigate to the Behat folder inside your Test folder:
 
@@ -62,13 +62,13 @@ cd Behat
 Execute the following:
 
 ```
-./run-behat.sh feedback firefox
+sh run-behat.sh feedback firefox
 ```
 
-Selenium will launch and run a test. You should see `1 scenarios (1 passed)` in the terminal window after 15-20 seconds.
+Selenium will launch and run a test. You should see `6 scenarios (6 passed)` in the terminal window after 15-20 seconds.
 
 
-##Test Execution
+## Test Execution
 
 Navigate to the Behat folder inside your Test folder:
 
@@ -88,7 +88,7 @@ or
 ./run-behat.sh regression chrome
 ```
 
-##Test Results
+## Test Results
 
 The results of all tests will be stored in 
 `/Results/Twig_***.html`
@@ -101,3 +101,4 @@ and
 7. Potential issues
 --------------------------
 # you mave have to 'dos2unix' all of the .sh files included in the repository.
+# you may have to update the location of your chromedriver and gecko driver in ..\behat_website_windows\bin\start_selenium_server.sh (line 15).
