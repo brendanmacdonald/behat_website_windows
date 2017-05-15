@@ -33,6 +33,9 @@ cd bin && ./cwtest-bootstrap.sh
 cd ..
 ```
 
+Update your PATH
+------------------------------------
+
 Add behat to your path.
 E.g. C:\Users\<username>\Desktop\Behat\behat_website\bin
 
@@ -98,7 +101,7 @@ and
 `/Results/behat.xml`
 
 
-7. Potential issues
+## Potential issues
 --------------------------
-# you mave have to 'dos2unix' all of the .sh files included in the repository.
-# you may have to update the location of your chromedriver and gecko driver in ..\behat_website_windows\bin\start_selenium_server.sh (line 15).
+### you mave have to 'dos2unix' all of the .sh files included in the repository.
+### you may have to update the location of your chromedriver and gecko driver in ..\behat_website_windows\bin\start_selenium_server.sh (line 15).
