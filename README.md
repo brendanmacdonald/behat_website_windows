@@ -20,7 +20,7 @@ Create a folder for the Behat framework, anywhere on your machine.
 2. Clone this repository.
 ---------------------------------------------------
 ```
-git clone git@github.com:brendanmacdonald/behat_website.git
+git clone git@github.com:brendanmacdonald/behat_website_windows.git
 cd behat_website
 ```
 
@@ -32,6 +32,9 @@ Run the bootstrap shell script:
 cd bin && ./cwtest-bootstrap.sh
 cd ..
 ```
+
+4. Add behat to your path.
+E.g. C:\Users\<username>\Desktop\Behat\behat_website\bin
 
 5. Update your local configuration (for the included website)
 -------------------------------------------------------------
@@ -93,3 +96,8 @@ and
 `/Results/Behat2_***.html`
 and 
 `/Results/behat.xml`
+
+
+7. Potential issues
+--------------------------
+# you mave have to 'dos2unix' all of the .sh files included in the repository.
