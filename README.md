@@ -104,4 +104,5 @@ and
 ## Potential issues
 --------------------------
 You mave have to 'dos2unix' all of the .sh files included in the repository.
+
 You may have to update the location of your chromedriver and gecko driver in ..\behat_website_windows\bin\start_selenium_server.sh (line 15).
