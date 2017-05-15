@@ -1,0 +1,60 @@
+machine:
+  timezone:
+    Europe/London
+  environment:
+    DOCROOT: "$HOME/$CIRCLE_PROJECT_REPONAME"
+#    DB_NAME: "candw_d8"
+#    DB_USERNAME: "ubuntu"
+#    DB_PASSWORD: ""
+    SERVER: behat.demo
+    PATH: "$HOME/.composer/vendor/bin:$PATH"
+
+  hosts:
+    behat.demo: 127.0.0.1
+
+dependencies:
+  cache_directories:
+    - "~/cache"
+  pre:
+    # Apache update
+    - sudo apt-get update
+
+    # Install php5-mysql
+    - sudo apt-get install php5-mysql
+
+    # Configure timezone.
+    - echo "date.timezone = 'Europe/London'"  > /opt/circleci/php/$(php -r 'print PHP_VERSION;')/etc/conf.d/xdebug.ini
+
+    - mkdir -p ~/cache
+
+    # Add apache config.
+    - sudo a2enmod rewrite
+    - sudo cp circle.conf /etc/apache2/sites-available/default.conf
+    - sudo sed -e "s?%DOCROOT%?$DOCROOT?g" --in-place /etc/apache2/sites-available/default.conf
+    - sudo sed -e "s?%SERVER%?$SERVER?g" --in-place /etc/apache2/sites-available/default.conf
+    - sudo a2ensite default.conf
+    - sudo service apache2 restart
+
+    # Increase PHP memory size for running tests.
+    - echo "memory_limit = 512M" > /opt/circleci/php/$(php -r 'print PHP_VERSION;')/etc/conf.d/memory.ini
+
+  override:
+    # Update composer
+    - sudo composer self-update
+
+test:
+  pre:
+    #Behat folders
+    - cd $DOCROOT/bin && ./cwtest-bootstrap.sh
+    - cd ~/cache && wget -nc https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
+    - java -jar ~/cache/selenium-server-standalone-2.53.1.jar:
+          background: true
+
+  override:
+    # Execute Behat tests
+    - mkdir -p $CIRCLE_TEST_REPORTS/Behat
+    - cd $DOCROOT && bin/behat -c Behat/behat.yml --tags=@feedback -p firefox
+
+  post:
+    # Prepare Behat JUNIT output for CircleCI
+    - cp $DOCROOT/Results/behat.xml $CIRCLE_TEST_REPORTS/Behat

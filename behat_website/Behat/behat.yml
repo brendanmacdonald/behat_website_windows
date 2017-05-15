@@ -1,0 +1,66 @@
+default:
+  suites:
+    behat:
+      paths: [ %paths.base%/features ]
+      contexts:
+        - CWTest\Context\FeedbackContext
+        - CWTest\Context\HelperContext:
+            parameters:
+              screenshot_path: %paths.base%/../Results/screenshots
+        - Behat\MinkExtension\Context\MinkContext
+  extensions:
+    Behat\MinkExtension:
+      files_path: %paths.base%/images
+      base_url: http://behat.demo
+      javascript_session: selenium2
+      selenium2:
+        wd_host: "http://localhost:4444/wd/hub"
+      goutte: ~
+    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+       name: html
+       renderer: Twig,Behat2
+       print_args: true
+       print_outp: true
+       loop_break: true
+  formatters:
+    pretty: true
+    html:
+      output_path: %paths.base%/../Results
+    junit:
+      output_path: %paths.base%/../Results
+
+chrome:
+  extensions:
+    Behat\MinkExtension:
+      browser_name: chrome
+
+
+firefox:
+  extensions:
+    Behat\MinkExtension:
+      browser_name: firefox
+
+phantomjs:
+  extensions:
+    Behat\MinkExtension:
+      selenium2:
+        wd_host: "http://localhost:4445/wd/hub"
+
+browserstack:
+  extensions:
+    Behat\MinkExtension:
+      sessions:
+        my_session:
+          browser_stack:
+            username: <<<BROWSERSTACK USERNAME>>>
+            access_key: <<<BROWSERSTACK ACCESS KEY>>>
+            capabilities:
+              name: "Behat Tests"
+              os: "OS X"
+              os_version: Sierra
+              browser: chrome
+              browserVersion: 56
+              resolution: 1920x1080
+              extra_capabilities:
+                browserstack-tunnel:  true
+                browserstack.debug: true
